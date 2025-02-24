@@ -1,0 +1,21 @@
+const mongoose = require("mongoose");
+const Player = require("./models/Player")
+const {nanoid} = require("nanoid");
+
+mongoose.connect(process.env.MONGO_URI);
+const db = mongoose.connection;
+
+async function addPlayer(username){
+    await Player.create({
+        playerid:nanoid(8),
+        username:username,
+        firstname:"first",
+        lastname:"last",
+        creationdate:"02/24/2025 13:41:16",
+        score:0
+    });
+    console.log("player added");
+    mongoose.connection.close();
+}
+
+addPlayer("TestUsername");
