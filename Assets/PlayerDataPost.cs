@@ -180,6 +180,7 @@ public class PlayerData
     public string lastname;
     public string creationdate;
     public int score;
+    public PlayerData() { }
     public PlayerData(string username, string firstname, string lastname, int score, string creationdate="")
     {
         this.username = username;
