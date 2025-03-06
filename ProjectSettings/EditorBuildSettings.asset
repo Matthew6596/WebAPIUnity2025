@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/FreezeTagLobby.unity
+    guid: 940424d5f29c2834ca51bd7440ff851e
+  - enabled: 1
     path: Assets/Scenes/MirrorScene.unity
     guid: 7d0b8851b8a24354c8a86130a4f739d0
   m_configObjects: {}
