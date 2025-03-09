@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors()); //allows making requests from game
 app.use(bodyParser.json());
+app.use(express.static("public")); //check parameters <<<
 
 const port = 3000;
 
@@ -28,14 +29,14 @@ app.get("/player",async(req,res)=>{ //get all players
     }catch(e){res.status(500).json({error:"Failed to get players."});}
 });
 
-app.get("/player/:playerid",async(req,res)=>{ //get one player based on id
+/*app.get("/player/:playerid",async(req,res)=>{ //get one player based on id
     try{
         const items = await Player.findOne({"playerid":req.params.playerid});
         res.json(items);
     }catch(e){res.status(500).json({error:"Failed to get player."});}
-});
+});*/
 
-app.get("/playerByName/:username",async(req,res)=>{ //get one player based on id
+app.get("/playerByName/:username",async(req,res)=>{ //get one player based on username
     try{
         const items = await Player.findOne({"username":req.params.username});
         res.json(items);
@@ -53,16 +54,16 @@ app.post("/player",async(req,res)=>{ //add new player
 
 });
 
-app.post("/player/:playerid",async(req,res)=>{ //update existing player
-    Player.findOneAndUpdate({"playerid":req.params.playerid},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+app.post("/player/:username",async(req,res)=>{ //update existing player
+    Player.findOneAndUpdate({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json(updatedItem);
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
 
 });
 
-app.delete("/player/:playerid",async(req,res)=>{ //delete existing player
-    Player.findOneAndDelete({"playerid":req.params.playerid},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+app.delete("/player/:username",async(req,res)=>{ //delete existing player
+    Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json({"message":"Deletion successful."});
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});

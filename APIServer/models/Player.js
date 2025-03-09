@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const playerSchema = new mongoose.Schema({
-    playerid:{type:String,unique:true},
     username:{type:String,unique:true},
     firstname:String,
     lastname:String,
     creationdate:String,
-    score:Number
+    winCount:Number,
+    bestTime:String
 });
 
 const Player = mongoose.model("Player",playerSchema,"playerdata");
