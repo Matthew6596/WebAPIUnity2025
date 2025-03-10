@@ -15,7 +15,7 @@ app.use(express.static("public")); //check parameters <<<
 const port = 3000;
 
 //MongoDB connection
-mongoose.connect("mongodb://localhost:27017/gamedb");
+mongoose.connect("mongodb://localhost:27017/finalsgamedb");
 const db = mongoose.connection;
 
 db.on("error",console.error.bind(console,"MongoDB connection error"));
@@ -25,6 +25,20 @@ db.once("open",()=>{console.log("Connected to mongodb");});
 app.get("/player",async(req,res)=>{ //get all players
     try{
         const items = await Player.find();
+        res.json(items);
+    }catch(e){res.status(500).json({error:"Failed to get players."});}
+});
+app.get("/playersByWins",async(req,res)=>{ //get all players sorted by win count
+    try{
+        const items = await Player.find();
+        items.sort((a,b)=>b.wincount-a.wincount);
+        res.json(items);
+    }catch(e){res.status(500).json({error:"Failed to get players."});}
+});
+app.get("/playersByTimes",async(req,res)=>{ //get all players sorted by best times
+    try{
+        const items = await Player.find();
+        items.sort((a,b)=>b.besttime-a.besttime);
         res.json(items);
     }catch(e){res.status(500).json({error:"Failed to get players."});}
 });
@@ -46,10 +60,9 @@ app.get("/playerByName/:username",async(req,res)=>{ //get one player based on us
 app.post("/player",async(req,res)=>{ //add new player
     try {
         let newItem = new Player(req.body);
-        newItem.playerid = nanoid(8);
         //Save new user
         await newItem.save();
-        res.json({message:"Player Added",playerid:newItem.playerid,name:newItem.name})
+        res.json({message:"Player Added",username:newItem.username,firstname:newItem.firstname})
     } catch (e) {res.status(501).json({error:"Failed to add new player: "+e});}
 
 });

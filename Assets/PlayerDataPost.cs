@@ -34,7 +34,7 @@ public class PlayerDataPost : MonoBehaviour
     private IEnumerator PostPlayerData(string playerid)
     {
         PlayerData player = GetFormData();
-        player.playerid = playerid;
+        //player.playerid = playerid;
         string json = JsonUtility.ToJson(player);
         byte[] jsonToSend = Encoding.UTF8.GetBytes(json);
 
@@ -106,8 +106,8 @@ public class PlayerDataPost : MonoBehaviour
         firstnameInp.text = player.firstname;
         lastnameInp.text = player.lastname;
         creationDateTxt.text = player.creationdate;
-        scoreInp.text = player.score.ToString();
-        playeridInp.text = player.playerid;
+        //scoreInp.text = player.score.ToString();
+        //playeridInp.text = player.playerid;
     }
 
     private string GetPlayerID(string json)
@@ -174,24 +174,25 @@ public class PlayerDataPost : MonoBehaviour
 [Serializable]
 public class PlayerData
 {
-    public string playerid;
     public string username;
     public string firstname;
     public string lastname;
     public string creationdate;
-    public int score;
+    public int wincount;
+    public float besttime;
+    public int gamesplayed;
     public PlayerData() { }
     public PlayerData(string username, string firstname, string lastname, int score, string creationdate="")
     {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.score = score;
+        //this.score = score;
 
         this.creationdate = creationdate==""?DateTime.Now.ToString():creationdate;
     }
     public override string ToString()
     {
-        return $"{username}, name:{firstname} {lastname}, date:{creationdate}, score:{score}";
+        //return $"{username}, name:{firstname} {lastname}, date:{creationdate}, score:{score}";
     }
 }

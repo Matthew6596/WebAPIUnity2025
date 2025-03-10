@@ -5,8 +5,9 @@ const playerSchema = new mongoose.Schema({
     firstname:String,
     lastname:String,
     creationdate:String,
-    winCount:Number,
-    bestTime:String
+    wincount:Number,
+    besttime:Number,
+    gamesplayed:Number
 });
 
 const Player = mongoose.model("Player",playerSchema,"playerdata");
