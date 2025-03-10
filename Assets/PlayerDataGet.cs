@@ -82,9 +82,9 @@ public class PlayerDataGet : MonoBehaviour
 
     private void FillPlayerList(PlayerData[] playersData)
     {
-        if (playersData == null || playersData.Length == 0) return;
+        if (playersData == null) return;
         int topTenCount = 0;
-        foreach(PlayerData playerData in playersData.OrderBy((a) => a.username).ToList())
+        foreach(PlayerData playerData in playersData)
         {
             GameObject listEntry = new(playerData.username + "_entry");
             listEntry.transform.parent = playerList;
