@@ -7,15 +7,17 @@ using TMPro;
 public class GameTimer : NetworkBehaviour
 {
     [SyncVar] public float timeRemaining = 60;
+    [SyncVar] public float time = 60;
 
     private void Update()
     {
         if (!isServer) return;
 
         timeRemaining -= Time.deltaTime;
+        time += Time.deltaTime;
         if (timeRemaining <= 0)
         {
-            EndGame();
+            //EndGame();
         }
     }
 
