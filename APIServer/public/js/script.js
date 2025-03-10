@@ -1,4 +1,14 @@
 listContainer = document.getElementById("listContainer");
+pageIndicator = document.getElementById("pageIndicator");
+
+const callPageFunctions = async ()=>{
+    if(pageIndicator.title == "index"){
+        fetchPlayerData();
+    }
+    else if(pageIndicator.title == "mostwins"){
+        fetchTopTenPlayers();
+    }
+}
 
 const fetchPlayerData = async ()=>{
     try{
@@ -61,5 +71,4 @@ const fetchTopTenPlayers = async ()=>{
     }
 }
 
-//fetchPlayerData();
-fetchTopTenPlayers();
+callPageFunctions();
