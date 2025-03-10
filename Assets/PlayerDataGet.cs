@@ -25,7 +25,7 @@ public class PlayerDataGet : MonoBehaviour
 
     private IEnumerator GetPlayerDataByName(string username)
     {
-        string uri = $"{serverURI}ByName/{username}";
+        string uri = $"{serverURI}/{username}";
         using UnityWebRequest request = UnityWebRequest.Get(uri);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -52,9 +52,9 @@ public class PlayerDataGet : MonoBehaviour
         }
     }
 
-    private IEnumerator GetAllPlayerData()
+    private IEnumerator GetAllPlayerData(string uriEnding="")
     {
-        using UnityWebRequest request = UnityWebRequest.Get(serverURI);
+        using UnityWebRequest request = UnityWebRequest.Get(serverURI+ uriEnding);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
@@ -85,7 +85,7 @@ public class PlayerDataGet : MonoBehaviour
         if (playersData == null || playersData.Length == 0) return;
         foreach(PlayerData playerData in playersData.OrderBy((a) => a.username).ToList())
         {
-            GameObject listEntry = new(playerData.playerid + "_entry");
+            GameObject listEntry = new(playerData.username + "_entry");
             listEntry.transform.parent = playerList;
             listEntry.AddComponent<RectTransform>().sizeDelta = new(620, 24);
             TMP_Text entryTxt = listEntry.AddComponent<TextMeshProUGUI>();
@@ -104,8 +104,13 @@ public class PlayerDataGet : MonoBehaviour
         StartCoroutine(GetPlayerDataByName(nameField.text));
     }
 
-    public void GetAll()
+    public void GetAllByTimes()
     {
-        StartCoroutine(GetAllPlayerData());
+        StartCoroutine(GetAllPlayerData("sByTimes"));
+    }
+
+    public void GetAllByWins()
+    {
+        StartCoroutine(GetAllPlayerData("sByWins"));
     }
 }
