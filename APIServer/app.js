@@ -5,12 +5,14 @@ const fs = require("fs");
 const cors = require("cors");
 const {nanoid} = require("nanoid");
 const Player = require("./models/Player");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(cors()); //allows making requests from game
 app.use(bodyParser.json());
-app.use(express.static("public")); //check parameters <<<
+//app.use(express.static("public")); //check parameters <<<
+app.use(express.static(path.join(__dirname, "public")));
 
 const port = 3000;
 
@@ -20,6 +22,11 @@ const db = mongoose.connection;
 
 db.on("error",console.error.bind(console,"MongoDB connection error"));
 db.once("open",()=>{console.log("Connected to mongodb");});
+
+//HTML Pages
+app.get("/mostwins", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "mostwins.html")); 
+});
 
 //API routes
 app.get("/player",async(req,res)=>{ //get all players
