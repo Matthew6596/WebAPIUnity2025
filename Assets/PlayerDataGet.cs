@@ -83,6 +83,7 @@ public class PlayerDataGet : MonoBehaviour
     private void FillPlayerList(PlayerData[] playersData)
     {
         if (playersData == null || playersData.Length == 0) return;
+        int topTenCount = 0;
         foreach(PlayerData playerData in playersData.OrderBy((a) => a.username).ToList())
         {
             GameObject listEntry = new(playerData.username + "_entry");
@@ -92,6 +93,20 @@ public class PlayerDataGet : MonoBehaviour
             entryTxt.color = Color.black;
             entryTxt.fontSize = 16;
             entryTxt.text = playerData.ToString();
+
+            topTenCount++;
+            if (topTenCount == 10) break;
+        }
+
+        for(int i=topTenCount; i<10; i++)
+        {
+            GameObject listEntry = new("null_entry");
+            listEntry.transform.parent = playerList;
+            listEntry.AddComponent<RectTransform>().sizeDelta = new(620, 24);
+            TMP_Text entryTxt = listEntry.AddComponent<TextMeshProUGUI>();
+            entryTxt.color = Color.black;
+            entryTxt.fontSize = 16;
+            entryTxt.text = "--- None ---";
         }
     }
     private void ClearPlayerList()
