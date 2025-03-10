@@ -50,7 +50,7 @@ app.get("/playersByTimes",async(req,res)=>{ //get all players sorted by best tim
     }catch(e){res.status(500).json({error:"Failed to get player."});}
 });*/
 
-app.get("/playerByName/:username",async(req,res)=>{ //get one player based on username
+app.get("/player/:username",async(req,res)=>{ //get one player based on username
     try{
         const items = await Player.findOne({"username":req.params.username});
         res.json(items);
@@ -72,7 +72,6 @@ app.post("/player/:username",async(req,res)=>{ //update existing player
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json(updatedItem);
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
-
 });
 
 app.delete("/player/:username",async(req,res)=>{ //delete existing player
