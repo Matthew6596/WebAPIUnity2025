@@ -9,6 +9,7 @@ const path = require("path");
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //NEEDED FOR FORM TO WORK
 app.use(cors()); //allows making requests from game
 app.use(bodyParser.json());
 //app.use(express.static("public")); //check parameters <<<
