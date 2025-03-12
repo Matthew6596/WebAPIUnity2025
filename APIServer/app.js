@@ -29,7 +29,11 @@ app.get("/mostwins", (req,res)=>{
 });
 
 app.get("/edit", (req,res)=>{
-    res.sendFile(path.join(__dirname, "public", "updateanddelete.html")); 
+    res.sendFile(path.join(__dirname, "public", "edit.html")); 
+});
+
+app.get("/update", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "update.html")); 
 });
 
 //API routes
@@ -78,13 +82,33 @@ app.post("/player",async(req,res)=>{ //add new player
 
 });
 
+//Unity
 app.post("/player/:username",async(req,res)=>{ //update existing player
     Player.findOneAndUpdate({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json(updatedItem);
+        //return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
+});
+//Website
+app.post("/update/:username",async(req,res)=>{ //update existing player
+    console.log(req.body);
+    Player.findOneAndUpdate({"username":req.params.username}, req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+        if(!updatedItem) return res.status(404).json({error:"Player not found."});
+        //res.json(updatedItem);
+        return res.redirect("/edit");
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
 });
 
+//Unity
+app.delete("/player/:username",async(req,res)=>{ //delete existing player
+    Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+        if(!updatedItem) return res.status(404).json({error:"Player not found."});
+        res.json({"message":"Deletion successful."});
+        //return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to delete player: "+e});});
+});
+//Website
 app.post("/delete/:username",async(req,res)=>{ //delete existing player
     Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
