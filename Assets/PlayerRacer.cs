@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using System.Linq;
 using TMPro;
+using System;
 
 public class PlayerRacer : NetworkBehaviour
 {
@@ -11,29 +12,46 @@ public class PlayerRacer : NetworkBehaviour
     [SyncVar] public bool isFroze = false;
     [SyncVar] public bool isFinished = false;
     [SyncVar] public float time;
+    [SyncVar] public string playerName;
 
-    private void Awake()
-    {
-        if (isLocalPlayer)
-        {
-            name = GameManager.currLocalPlayer.username;
-        }
-    }
+    private TMP_Text nametag;
 
     private void Start()
     {
+        nametag = transform.GetChild(0).gameObject.GetComponent<TMP_Text>();
+
+        if (isLocalPlayer)
+        {
+            name = GameManager.currLocalPlayer.username;
+            playerName = name;
+            nametag.text = name;
+            CmdTellName(name);
+        }
+
         if (!isServer) return;
-        SendNames();
+
+        /*StartCoroutine(delay(() =>
+        {
+            PlayerRacer[] racers = FindObjectsByType<PlayerRacer>(FindObjectsSortMode.None);
+            foreach (PlayerRacer racer in racers)
+            {
+                Debug.Log("nameserver: " + racer.playerName);
+                racer.RPCSetName();
+            }
+        }));*/
+        
     }
 
-    [Server]
-    void SendNames()
+    private void Update()
     {
-        RPCInformName(name);
+        if (nametag.text == "[username]" && playerName != "")
+        {
+            nametag.text = playerName;
+        }
     }
 
     [Server]
-    public void FinishRace()
+    public void FinishRace(bool first)
     {
         GameTimer timer = FindObjectOfType<GameTimer>();
         time = timer.time;
@@ -47,7 +65,7 @@ public class PlayerRacer : NetworkBehaviour
             Debug.Log("game over!");
         }
         //Debug.Log(racers[0].name + ", " + playerName + ", "+racers.Length);
-        RPCUpdateState(time, name == racers[0].name);
+        RPCUpdateState(time, first);
         //Debug.Log("Player finished race: " + playerName + ", " + time);
     }
 
@@ -99,8 +117,15 @@ public class PlayerRacer : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RPCInformName(string name)
+    void RPCSetName()
     {
-        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = name;
+        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = playerName;
+    }
+
+    [Command]
+    void CmdTellName(string name)
+    {
+        playerName = name;
+        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = playerName;
     }
 }

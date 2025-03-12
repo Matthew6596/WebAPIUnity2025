@@ -62,6 +62,10 @@ public class PlayerDataPost : MonoBehaviour
         else
         {
             Debug.LogError($"PostPlayerData {request.result}: {request.error}");
+
+            //TEMP FOR TESTING
+            GameManager.currLocalPlayer = new("temp_name_"+UnityEngine.Random.Range(100,1000),"t","n");
+            GetComponent<MenuScript>().ChangeScene("RacingLobby");
         }
     }
 

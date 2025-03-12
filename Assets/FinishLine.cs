@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FinishLine : NetworkBehaviour
@@ -26,7 +27,10 @@ public class FinishLine : NetworkBehaviour
 
         if (!racer.isFinished)
         {
-            racer.FinishRace();
+            PlayerRacer[] racers = FindObjectsByType<PlayerRacer>(FindObjectsSortMode.None);
+            bool first = true;
+            foreach(PlayerRacer r in racers) if (r.isFinished) { first = false; break; }
+            racer.FinishRace(first);
         }
     }
 }
