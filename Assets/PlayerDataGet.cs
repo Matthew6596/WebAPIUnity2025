@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class PlayerDataGet : MonoBehaviour
 {
+    public static PlayerDataGet inst;
+
     public string serverURI = "http://localhost:3000/player";
 
     public PlayerDataPost dataPoster;
@@ -16,6 +18,15 @@ public class PlayerDataGet : MonoBehaviour
     public Button getByNameBtn;
     public Transform playerList;
     public ErrorMenu errorMenu;
+
+    //public PlayerData currentPlayer;
+
+    private void Awake()
+    {
+        inst = this;
+        //currentPlayer = new("testuser", "test", "user");
+        //GameManager.currLocalPlayer = currentPlayer;
+    }
 
     // Start is called before the first frame update
     void Start()

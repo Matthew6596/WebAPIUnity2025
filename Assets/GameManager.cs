@@ -5,6 +5,8 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
+    public static PlayerData currLocalPlayer;
+
     [SyncVar]
     public GameObject itPlayer;
 
@@ -13,7 +15,7 @@ public class GameManager : NetworkBehaviour
         if (!isServer) return;
         itPlayer = NetworkServer.connections[0].identity.gameObject;
         //Set player to it
-        itPlayer.GetComponent<PlayerTag>().isIt = true;
+        //itPlayer.GetComponent<PlayerTag>().isIt = true;
         //SetItPlayerRPC();
     }
 
@@ -34,7 +36,7 @@ public class GameManager : NetworkBehaviour
         {
             itPlayer = NetworkServer.connections[0].identity.gameObject;
             //Set player to it
-            itPlayer.GetComponent<PlayerTag>().isIt = true;
+            //itPlayer.GetComponent<PlayerTag>().isIt = true;
         }
     }
 }

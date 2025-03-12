@@ -5,11 +5,17 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
-    public float spd=5;
+    public float spd=1;
+    public Vector3 velocity;
+    public float friction = 0.95f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!isLocalPlayer)
+        {
+            //Destroy camera, leaving only the local player's camera
+            Destroy(transform.GetChild(1).gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -17,7 +23,12 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        Vector3 inp = new Vector3(Input.GetAxis("Horizontal"), 0,Input.GetAxis("Vertical")) * spd;
-        transform.position += inp * Time.deltaTime;
+        Vector3 forwardMove = transform.forward*Input.GetAxis("Vertical");
+        Vector3 horizontalMove = transform.right * Input.GetAxis("Horizontal");
+
+        velocity += (forwardMove + horizontalMove) * spd;
+        velocity *= friction;
+
+        transform.position += velocity * Time.deltaTime;
     }
 }

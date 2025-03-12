@@ -24,6 +24,9 @@ public class FinishLine : NetworkBehaviour
         PlayerRacer racer = other.gameObject.GetComponent<PlayerRacer>();
         if (racer == null) return;
 
-        racer.FinishRace();
+        if (!racer.isFinished)
+        {
+            racer.FinishRace();
+        }
     }
 }

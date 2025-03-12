@@ -7,7 +7,7 @@ using TMPro;
 public class GameTimer : NetworkBehaviour
 {
     [SyncVar] public float timeRemaining = 60;
-    [SyncVar] public float time = 60;
+    [SyncVar] public float time = 0;
 
     private void Update()
     {

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using static System.Net.WebRequestMethods;
 
 public class PlayerDataPost : MonoBehaviour
 {
@@ -55,6 +56,8 @@ public class PlayerDataPost : MonoBehaviour
             //string playerID = GetPlayerID(response);
             //Debug.Log("posted w/ id: " + playerID);
             Debug.Log("Player data posted successfully: "+response);
+            GameManager.currLocalPlayer = player;
+            GetComponent<MenuScript>().ChangeScene("RacingLobby");
         }
         else
         {
@@ -64,7 +67,7 @@ public class PlayerDataPost : MonoBehaviour
 
     private IEnumerator DeletePlayerData(string username)
     {
-        string uri = serverURI +"/"+ username;
+        string uri =serverURI +"/"+ username;
         UnityWebRequest request = new(uri, "DELETE");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");

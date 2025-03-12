@@ -6,10 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LoginMenu.unity
+    guid: 1417a1049eb94444d9de133da55d24d1
+  - enabled: 1
+    path: Assets/Scenes/RacingLobby.unity
+    guid: 504913da9cf88db479d669fc2a98a848
+  - enabled: 1
+    path: Assets/Scenes/RacingScene.unity
+    guid: cd718947ce117d8498cefd4ee5440fe9
+  - enabled: 1
     path: Assets/Scenes/FreezeTagLobby.unity
     guid: 940424d5f29c2834ca51bd7440ff851e
   - enabled: 1
     path: Assets/Scenes/MirrorScene.unity
     guid: 7d0b8851b8a24354c8a86130a4f739d0
   m_configObjects: {}
-  m_UseUCBPForAssetBundles: 0
