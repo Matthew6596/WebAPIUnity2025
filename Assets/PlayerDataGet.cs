@@ -54,6 +54,8 @@ public class PlayerDataGet : MonoBehaviour
             {
                 PlayerData player = JsonUtility.FromJson<PlayerData>(json);
                 dataPoster.FillForm(player);
+                GameManager.currLocalPlayer = player;
+                GetComponent<MenuScript>().ChangeScene("RacingLobby");
             }
         }
         else

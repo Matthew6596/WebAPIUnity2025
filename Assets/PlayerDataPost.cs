@@ -16,6 +16,7 @@ public class PlayerDataPost : MonoBehaviour
     public TMP_InputField usernameInp, firstnameInp, lastnameInp;
     public TMP_Text creationDateTxt;
     public Button submitBtn,deleteBtn;
+    public ErrorMenu errorMenu;
 
     const int playeridLength = 8;
     Coroutine loadingPlayerCo;
@@ -69,6 +70,11 @@ public class PlayerDataPost : MonoBehaviour
         }
         else
         {
+            if (errorMenu != null)
+            {
+                if (existingPlayerUsername == "") errorMenu.Popup($"Unable to create player... (username may be taken already)");
+                else errorMenu.Popup($"Unable to update player, check network connection.");
+            }
             Debug.LogError($"PostPlayerData {request.result}: {request.error}");
 
             onFinish?.Invoke(false);
@@ -223,6 +229,6 @@ public class PlayerData
     }
     public override string ToString()
     {
-        return $"{username}, name:{firstname} {lastname}, win count:{wincount}";
+        return $"{username} - Wins: {wincount}, Best Time: {besttime}";
     }
 }

@@ -784,7 +784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -345}
+  m_AnchoredPosition: {x: 160, y: -264.93225}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &107807677
@@ -2386,7 +2386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Update
+  m_text: Login
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4078,6 +4078,7 @@ GameObject:
   - component: {fileID: 996430399}
   - component: {fileID: 996430398}
   - component: {fileID: 996430402}
+  - component: {fileID: 996430403}
   m_Layer: 5
   m_Name: UpdatePlayerForm
   m_TagString: Untagged
@@ -4132,6 +4133,7 @@ MonoBehaviour:
   creationDateTxt: {fileID: 1205710829}
   submitBtn: {fileID: 2063271920}
   deleteBtn: {fileID: 107807677}
+  errorMenu: {fileID: 307168967}
 --- !u!114 &996430399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4214,6 +4216,18 @@ MonoBehaviour:
   getByNameBtn: {fileID: 1533937554}
   playerList: {fileID: 0}
   errorMenu: {fileID: 307168967}
+--- !u!114 &996430403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996430396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4debef069a1fc9c449f0a67d65bd33fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1018648804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4794,7 +4808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1104852189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4948,7 +4962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -185}
+  m_AnchoredPosition: {x: 160, y: -184.93225}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1171015036
@@ -5112,7 +5126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -70}
+  m_AnchoredPosition: {x: 160, y: -149.93225}
   m_SizeDelta: {x: 300, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1205710829
@@ -6200,7 +6214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -145}
+  m_AnchoredPosition: {x: 160, y: -184.93225}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1391498982
@@ -6577,6 +6591,7 @@ MonoBehaviour:
   creationDateTxt: {fileID: 0}
   submitBtn: {fileID: 889256264}
   deleteBtn: {fileID: 0}
+  errorMenu: {fileID: 307168967}
 --- !u!114 &1475565725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6607,7 +6622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1533937553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7382,7 +7397,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -30}
+  m_AnchoredPosition: {x: 160, y: -109.93225}
   m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687633233
@@ -7405,7 +7420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: View / Edit Player
+  m_text: Login
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8629,7 +8644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2058184519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8783,7 +8798,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -225}
+  m_AnchoredPosition: {x: 160, y: -204.93225}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2063271918
@@ -8822,7 +8837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -305}
+  m_AnchoredPosition: {x: 160, y: -224.93225}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063271920
@@ -8869,9 +8884,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 996430398}
-        m_TargetAssemblyTypeName: PlayerDataPost, Assembly-CSharp
-        m_MethodName: UpdatePlayer
+      - m_Target: {fileID: 996430402}
+        m_TargetAssemblyTypeName: PlayerDataGet, Assembly-CSharp
+        m_MethodName: GetByName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
