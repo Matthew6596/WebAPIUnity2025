@@ -5,12 +5,14 @@ const fs = require("fs");
 const cors = require("cors");
 const {nanoid} = require("nanoid");
 const Player = require("./models/Player");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(cors()); //allows making requests from game
 app.use(bodyParser.json());
-app.use(express.static("public")); //check parameters <<<
+//app.use(express.static("public")); //check parameters <<<
+app.use(express.static(path.join(__dirname, "public")));
 
 const port = 3000;
 
@@ -20,6 +22,19 @@ const db = mongoose.connection;
 
 db.on("error",console.error.bind(console,"MongoDB connection error"));
 db.once("open",()=>{console.log("Connected to mongodb");});
+
+//HTML Pages
+app.get("/mostwins", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "mostwins.html")); 
+});
+
+app.get("/edit", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "edit.html")); 
+});
+
+app.get("/update", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "update.html")); 
+});
 
 //API routes
 app.get("/player",async(req,res)=>{ //get all players
@@ -67,19 +82,38 @@ app.post("/player",async(req,res)=>{ //add new player
 
 });
 
+//Unity
 app.post("/player/:username",async(req,res)=>{ //update existing player
     Player.findOneAndUpdate({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json(updatedItem);
+        //return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
+});
+//Website
+app.post("/update/:username",async(req,res)=>{ //update existing player
+    console.log(req.body);
+    Player.findOneAndUpdate({"username":req.params.username}, req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+        if(!updatedItem) return res.status(404).json({error:"Player not found."});
+        //res.json(updatedItem);
+        return res.redirect("/edit");
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
 });
 
+//Unity
 app.delete("/player/:username",async(req,res)=>{ //delete existing player
     Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
         res.json({"message":"Deletion successful."});
-    }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
-
+        //return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to delete player: "+e});});
+});
+//Website
+app.post("/delete/:username",async(req,res)=>{ //delete existing player
+    Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
+        if(!updatedItem) return res.status(404).json({error:"Player not found."});
+        return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to delete player: "+e});});
 });
 
 app.listen(port,()=>{console.log(`Server running on port ${port}`)});

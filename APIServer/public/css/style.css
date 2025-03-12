@@ -5,3 +5,7 @@ body{
 li{
     text-align: left;
 }
+button{
+    width: 100px;
+    background-color: gray;
+}
