@@ -229,6 +229,6 @@ public class PlayerData
     }
     public override string ToString()
     {
-        return $"{username} - Wins: {wincount}, Best Time: {besttime}";
+        return $"{username} - Wins: {wincount}/{gamesplayed}, Best Time: {besttime}";
     }
 }

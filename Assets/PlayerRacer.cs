@@ -48,7 +48,14 @@ public class PlayerRacer : NetworkBehaviour
             nametag.text = playerName;
         }
 
-        if (!isLocalPlayer || !isFinished || playerDataUpdated) return;
+        if (!isLocalPlayer) return;
+        if (transform.position.y <= -5)
+        {
+            NetworkStartPosition[] spawns = FindObjectsByType<NetworkStartPosition>(FindObjectsSortMode.None);
+            transform.position = spawns[UnityEngine.Random.Range(0, spawns.Length)].transform.position;
+        }
+
+        if (!isFinished || playerDataUpdated) return;
         Debug.Log("Local player end: " + GameManager.currLocalPlayer.username);
         PlayerData data = GameManager.currLocalPlayer;
         //data.gamesplayed++;
