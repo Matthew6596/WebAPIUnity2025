@@ -37,7 +37,7 @@ const fetchPlayerData = async ()=>{
         players.forEach(player => {
             const listDiv = document.createElement("div");
             listDiv.className = "player";
-            listDiv.innerHTML = `${player.username} ${player.besttime} ${player.wincount} ${player.gamesplayed}`;
+            listDiv.innerHTML = `${player.username} | ${player.besttime} | ${player.wincount} | ${player.gamesplayed}`;
             listContainer.appendChild(listDiv);
         });
     } catch(error){
@@ -63,7 +63,7 @@ const fetchPlayerDataEditable = async ()=>{
         players.forEach(player => {
             const listDiv = document.createElement("div");
             listDiv.className = "player";
-            listDiv.innerHTML = `${player.username} ${player.besttime} ${player.wincount} ${player.gamesplayed}
+            listDiv.innerHTML = `${player.username} | ${player.besttime} | ${player.wincount} | ${player.gamesplayed}
                 <form action="javascript:window.location.href='/update?username=${player.username}'" method="GET"><button type="submit">Update</button></form>
                 <form action="/delete/${player.username}" method="POST"><button type="submit">Delete</button></form>`;
             listContainer.appendChild(listDiv);
@@ -100,7 +100,7 @@ const fetchTopTenPlayers = async ()=>{
 
             const listDiv = document.createElement("div");
             listDiv.className = "player";
-            listDiv.innerHTML = `${i + 1}. ${player.username} ${player.besttime} ${player.wincount} ${player.gamesplayed}`;
+            listDiv.innerHTML = `${i + 1}. ${player.username} | ${player.besttime} | ${player.wincount} | ${player.gamesplayed}`;
             listContainer.appendChild(listDiv);
         };
     } catch(error){
