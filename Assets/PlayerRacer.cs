@@ -13,6 +13,9 @@ public class PlayerRacer : NetworkBehaviour
     [SyncVar] public bool isFinished = false;
     [SyncVar] public float time;
     [SyncVar] public string playerName;
+    [SyncVar] public bool winner;
+
+    private bool playerDataUpdated = false;
 
     private TMP_Text nametag;
 
@@ -28,17 +31,7 @@ public class PlayerRacer : NetworkBehaviour
             CmdTellName(name);
         }
 
-        if (!isServer) return;
-
-        /*StartCoroutine(delay(() =>
-        {
-            PlayerRacer[] racers = FindObjectsByType<PlayerRacer>(FindObjectsSortMode.None);
-            foreach (PlayerRacer racer in racers)
-            {
-                Debug.Log("nameserver: " + racer.playerName);
-                racer.RPCSetName();
-            }
-        }));*/
+        //if (!isServer) return;
         
     }
 
@@ -48,6 +41,15 @@ public class PlayerRacer : NetworkBehaviour
         {
             nametag.text = playerName;
         }
+
+        if (!isLocalPlayer || !isFinished || playerDataUpdated) return;
+        Debug.Log("Local player end: " + GameManager.currLocalPlayer.username);
+        PlayerData data = GameManager.currLocalPlayer;
+        data.gamesplayed++;
+        if (time < data.besttime) data.besttime = time;
+        if(winner) data.wincount++;
+        PlayerDataPost.inst.UpdatePlayer(data, null);
+        playerDataUpdated = true;
     }
 
     [Server]
@@ -56,6 +58,7 @@ public class PlayerRacer : NetworkBehaviour
         GameTimer timer = FindObjectOfType<GameTimer>();
         time = timer.time;
         isFinished = true;
+        winner = first;
 
         PlayerRacer[] racers = FindObjectsByType<PlayerRacer>(FindObjectsSortMode.None).OrderBy((p)=>p.time).Reverse().ToArray();
         if (AllRacersFinished(racers))
@@ -105,6 +108,7 @@ public class PlayerRacer : NetworkBehaviour
     {
         time = finaltime;
         isFinished = true;
+        winner = firstFinish;
         GetComponent<PlayerController>().enabled = false;
         GetComponent<Renderer>().material.color = (firstFinish)?Color.yellow:Color.green;
         transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text+=": "+finaltime;
@@ -116,11 +120,6 @@ public class PlayerRacer : NetworkBehaviour
         */
     }
 
-    [ClientRpc]
-    void RPCSetName()
-    {
-        transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = playerName;
-    }
 
     [Command]
     void CmdTellName(string name)

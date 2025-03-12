@@ -10,6 +10,8 @@ using static System.Net.WebRequestMethods;
 
 public class PlayerDataPost : MonoBehaviour
 {
+    public static PlayerDataPost inst;
+
     public string serverURI = "http://localhost:3000/player";
     public TMP_InputField usernameInp, firstnameInp, lastnameInp;
     public TMP_Text creationDateTxt;
@@ -17,6 +19,11 @@ public class PlayerDataPost : MonoBehaviour
 
     const int playeridLength = 8;
     Coroutine loadingPlayerCo;
+
+    private void Awake()
+    {
+        inst = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +39,9 @@ public class PlayerDataPost : MonoBehaviour
             });*/
     }
 
-    private IEnumerator PostPlayerData(string existingPlayerUsername="")
+    private IEnumerator PostPlayerData(string existingPlayerUsername="",PlayerData data=null,Action<bool> onFinish=null)
     {
-        PlayerData player = GetFormData();
+        PlayerData player = data ?? GetFormData();
         string json = JsonUtility.ToJson(player);
         byte[] jsonToSend = Encoding.UTF8.GetBytes(json);
 
@@ -57,15 +64,18 @@ public class PlayerDataPost : MonoBehaviour
             //Debug.Log("posted w/ id: " + playerID);
             Debug.Log("Player data posted successfully: "+response);
             GameManager.currLocalPlayer = player;
-            GetComponent<MenuScript>().ChangeScene("RacingLobby");
+            if(existingPlayerUsername=="") GetComponent<MenuScript>().ChangeScene("RacingLobby");
+            onFinish?.Invoke(true);
         }
         else
         {
             Debug.LogError($"PostPlayerData {request.result}: {request.error}");
 
+            onFinish?.Invoke(false);
+
             //TEMP FOR TESTING
-            GameManager.currLocalPlayer = new("temp_name_"+UnityEngine.Random.Range(100,1000),"t","n");
-            GetComponent<MenuScript>().ChangeScene("RacingLobby");
+            //GameManager.currLocalPlayer = new("temp_name_"+UnityEngine.Random.Range(100,1000),"t","n");
+            //GetComponent<MenuScript>().ChangeScene("RacingLobby");
         }
     }
 
@@ -177,6 +187,10 @@ public class PlayerDataPost : MonoBehaviour
     public void UpdatePlayer()
     {
         StartCoroutine(PostPlayerData(usernameInp.text));
+    }
+    public void UpdatePlayer(PlayerData data,Action<bool> onFinish)
+    {
+        StartCoroutine(PostPlayerData(data.username,data,onFinish));
     }
 
     public void DeleteData()

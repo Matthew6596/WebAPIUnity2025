@@ -24,6 +24,9 @@ public class PlayerController : NetworkBehaviour
     }
 
     private Vector3 prevPos;
+    private Vector3 targetNormal;
+    private const float tweenRate = 0.1f;
+    private const float tweenMult = 100;
     // Update is called once per frame
     void Update()
     {
@@ -31,7 +34,7 @@ public class PlayerController : NetworkBehaviour
         {
             Vector3 dir = transform.position - prevPos;
             dir.Normalize();
-            playerModel.forward = dir;
+            playerModel.forward = Vector3.Lerp(playerModel.forward, dir, tweenRate*Time.deltaTime*tweenMult);
         }
         prevPos = transform.position;
 
