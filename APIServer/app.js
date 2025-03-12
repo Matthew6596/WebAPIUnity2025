@@ -28,6 +28,10 @@ app.get("/mostwins", (req,res)=>{
     res.sendFile(path.join(__dirname, "public", "mostwins.html")); 
 });
 
+app.get("/edit", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "updateanddelete.html")); 
+});
+
 //API routes
 app.get("/player",async(req,res)=>{ //get all players
     try{
@@ -81,12 +85,11 @@ app.post("/player/:username",async(req,res)=>{ //update existing player
     }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
 });
 
-app.delete("/player/:username",async(req,res)=>{ //delete existing player
+app.post("/delete/:username",async(req,res)=>{ //delete existing player
     Player.findOneAndDelete({"username":req.params.username},req.body,{new:true,runValidators:true}).then((updatedItem)=>{
         if(!updatedItem) return res.status(404).json({error:"Player not found."});
-        res.json({"message":"Deletion successful."});
-    }).catch((e)=>{res.status(400).json({error:"Failed to update player: "+e});});
-
+        return res.redirect("/edit");
+    }).catch((e)=>{res.status(400).json({error:"Failed to delete player: "+e});});
 });
 
 app.listen(port,()=>{console.log(`Server running on port ${port}`)});
