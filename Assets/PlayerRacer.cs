@@ -31,8 +31,14 @@ public class PlayerRacer : NetworkBehaviour
             CmdTellName(name);
         }
 
+        PlayerData data = GameManager.currLocalPlayer;
+        data.gamesplayed++;
+        //if (time < data.besttime) data.besttime = time;
+        //if (winner) data.wincount++;
+        PlayerDataPost.inst.UpdatePlayer(data, null);
+        //playerDataUpdated = true;
         //if (!isServer) return;
-        
+
     }
 
     private void Update()
@@ -45,7 +51,7 @@ public class PlayerRacer : NetworkBehaviour
         if (!isLocalPlayer || !isFinished || playerDataUpdated) return;
         Debug.Log("Local player end: " + GameManager.currLocalPlayer.username);
         PlayerData data = GameManager.currLocalPlayer;
-        data.gamesplayed++;
+        //data.gamesplayed++;
         if (time < data.besttime) data.besttime = time;
         if(winner) data.wincount++;
         PlayerDataPost.inst.UpdatePlayer(data, null);
