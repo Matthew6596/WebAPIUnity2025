@@ -31,7 +31,7 @@ const fetchPlayerData = async ()=>{
         //Parse
         const players = await response.json();
 
-        listContainer.innerHTML = "";
+        listContainer.innerHTML = "<h3>USERNAME | BEST TIME | WINS | GAMES PLAYED<h3>";
 
         //Add to list
         players.forEach(player => {
@@ -57,7 +57,7 @@ const fetchPlayerDataEditable = async ()=>{
         //Parse
         const players = await response.json();
 
-        listContainer.innerHTML = "";
+        listContainer.innerHTML = "<h3>USERNAME | BEST TIME | WINS | GAMES PLAYED<h3>";
 
         //Add to list
         players.forEach(player => {
@@ -85,7 +85,7 @@ const fetchTopTenPlayers = async ()=>{
         //Parse
         const players = await response.json();
 
-        listContainer.innerHTML = "";
+        listContainer.innerHTML = "<h3>USERNAME | BEST TIME | WINS | GAMES PLAYED<h3>";
 
         //Add top 10 to list
         for (let i = 0; i < 10; i++){
@@ -149,7 +149,7 @@ const displayUpdatePage = async ()=>{
         <label for="wincount">Win Count:</label><br>
         <input type="number" id="wincount" name="wincount" value="${player.wincount}" min="0"><br>
         <label for="besttime">Best Time:</label><br>
-        <input type="number" id="besttime" name="besttime" value="${player.besttime}" min="0"><br>
+        <input type="decimal" id="besttime" name="besttime" value="${player.besttime}" min="0"><br>
         <label for="gamesplayed">Games Played:</label><br>
         <input type="number" id="gamesplayed" name="gamesplayed" value="${player.gamesplayed}" min="0"><br>
         <button type="submit">Update</button></form>`;
