@@ -4369,6 +4369,7 @@ MonoBehaviour:
   creationDateTxt: {fileID: 1205710829}
   submitBtn: {fileID: 2063271920}
   deleteBtn: {fileID: 107807677}
+  errorMenu: {fileID: 0}
 --- !u!114 &996430399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6826,6 +6827,7 @@ MonoBehaviour:
   creationDateTxt: {fileID: 0}
   submitBtn: {fileID: 889256264}
   deleteBtn: {fileID: 0}
+  errorMenu: {fileID: 0}
 --- !u!114 &1475565725
 MonoBehaviour:
   m_ObjectHideFlags: 0
