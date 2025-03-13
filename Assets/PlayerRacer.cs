@@ -29,13 +29,14 @@ public class PlayerRacer : NetworkBehaviour
             playerName = name;
             nametag.text = name;
             CmdTellName(name);
+
+            PlayerData data = GameManager.currLocalPlayer;
+            data.gamesplayed++;
+            //if (time < data.besttime) data.besttime = time;
+            //if (winner) data.wincount++;
+            PlayerDataPost.inst.UpdatePlayer(data, null);
         }
 
-        PlayerData data = GameManager.currLocalPlayer;
-        data.gamesplayed++;
-        //if (time < data.besttime) data.besttime = time;
-        //if (winner) data.wincount++;
-        PlayerDataPost.inst.UpdatePlayer(data, null);
         //playerDataUpdated = true;
         //if (!isServer) return;
 
