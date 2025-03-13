@@ -1,11 +1,20 @@
 body{
     text-align: center;
-    background-color: darkgray;
+    background-color: darkseagreen;
+    font-family: Verdana;
 }
 li{
     text-align: left;
+    font-family: Verdana;
 }
 button{
-    width: 100px;
-    background-color: gray;
+    height: 50px;
+    width: 115px;
+    font-size: medium;
+    background-color: mediumseagreen;
+    font-family: Verdana;
+}
+input{
+    font-size: medium;
+    font-family: Verdana;
 }
